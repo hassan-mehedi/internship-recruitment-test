@@ -54,7 +54,7 @@ const sortThePatients = () => {
 
 // Calling the function
 
-// sortThePatients();
+sortThePatients();
 
 // Task - 2
 // Listing and admitting the patients who are not admitted
@@ -81,7 +81,7 @@ const admittPatient = () => {
 
 // Calling the function
 
-// admittPatient();
+admittPatient();
 
 const checkDiseaseForKidney = (patient) => {
     let flag = false;
@@ -109,7 +109,7 @@ const findPatients = () => {
     );
 };
 
-// findPatients();
+findPatients();
 
 const checkDiseaseForCovid = (patient) => {
     let flag = false;

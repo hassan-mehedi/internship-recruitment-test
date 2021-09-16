@@ -29,6 +29,14 @@ const patients = [
         diseases: ["COVID", "1-kidney", "Impaired vision"],
         isAdmitted: false,
     },
+    // Temp value
+    {
+        firstName: "Mayham",
+        lastName: "Wayne",
+        patientID: "009",
+        diseases: ["COVID"],
+        isAdmitted: false,
+    },
 ];
 
 // Task - 1
@@ -75,7 +83,7 @@ const admittPatient = () => {
 
 // admittPatient();
 
-const checkDisease = (patient) => {
+const checkDiseaseForKidney = (patient) => {
     let flag = false;
     for (let i in patient.diseases) {
         if (patient.diseases[i] === "1-kidney") {
@@ -88,7 +96,7 @@ const checkDisease = (patient) => {
 
 const findPatients = () => {
     const needKidney = patients.filter((patient) => {
-        return checkDisease(patient);
+        return checkDiseaseForKidney(patient);
     });
 
     console.log("List of patients who need kidneys");
@@ -101,4 +109,35 @@ const findPatients = () => {
     );
 };
 
-findPatients();
+// findPatients();
+
+const checkDiseaseForCovid = (patient) => {
+    let flag = false;
+    for (let i in patient.diseases) {
+        if (patient.diseases[i] === "COVID") {
+            flag = true;
+            break;
+        }
+    }
+    return flag;
+};
+
+const findCovidPatients = () => {
+    const covidPatients = patients.filter((patient) => {
+        return checkDiseaseForCovid(patient);
+    });
+
+    console.log("List of patients who has COVID: ");
+
+    covidPatients.forEach((patient) => {
+        const { lastName, firstName } = patient;
+        let numberOfDiseases = patient.diseases.length;
+        console.log(
+            `${lastName}, ${firstName}, ${numberOfDiseases} ${
+                numberOfDiseases > 1 ? "diseases" : "disease"
+            }`
+        );
+    });
+};
+
+findCovidPatients();

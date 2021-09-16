@@ -35,11 +35,42 @@ const patients = [
 // Listing all the patients in order of thier patient IDs
 
 const sortThePatients = () => {
+    // sorting patients according to their id
     const sortedPatientsList = patients.sort((a, b) => {
         return a.patientID - b.patientID;
     });
     // printing all the patients
+    console.log("List of patients by their id:");
     console.log(sortedPatientsList);
 };
 
+// Calling the function
+
 sortThePatients();
+
+// Task - 2
+// Listing and admitting the patients who are not admitted
+
+const admittPatient = () => {
+    // finding not admitted patients and storing the list
+
+    const notAdmittedPatients = patients.filter((patient) => {
+        return !patient.isAdmitted;
+    });
+    // printing the list
+    console.log("List of patients who are not admitted:");
+    console.log(notAdmittedPatients);
+
+    // admitting the patients
+
+    notAdmittedPatients.map((patient) => {
+        patient.isAdmitted = true;
+    });
+    // printing the list
+    console.log("After admitting the patient:");
+    console.log(notAdmittedPatients);
+};
+
+// Calling the function
+
+admittPatient();

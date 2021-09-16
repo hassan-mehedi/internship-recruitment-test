@@ -46,7 +46,7 @@ const sortThePatients = () => {
 
 // Calling the function
 
-sortThePatients();
+// sortThePatients();
 
 // Task - 2
 // Listing and admitting the patients who are not admitted
@@ -73,4 +73,32 @@ const admittPatient = () => {
 
 // Calling the function
 
-admittPatient();
+// admittPatient();
+
+const checkDisease = (patient) => {
+    let flag = false;
+    for (let i in patient.diseases) {
+        if (patient.diseases[i] === "1-kidney") {
+            flag = true;
+            break;
+        }
+    }
+    return flag;
+};
+
+const findPatients = () => {
+    const needKidney = patients.filter((patient) => {
+        return checkDisease(patient);
+    });
+
+    console.log("List of patients who need kidneys");
+    console.log(needKidney);
+
+    console.log(
+        `Number of patients needed for finishing the kedney stock is ${
+            kidneysInStock - needKidney.length
+        }`
+    );
+};
+
+findPatients();

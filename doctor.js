@@ -123,8 +123,44 @@ const approveToTeam = (newDocID, teamID, condocID) => {
     });
 };
 
-let latestDoctorId = getThelastKey();
-addToTeam(latestDoctorId, "008");
+let newDoctorId = getThelastKey(); // Getting the new doctor ID
+addToTeam(newDoctorId, "008"); // Adding the doctor to team "008"
+
+// Promote Doctor Function
+const promoteDoctor = (doctorID, doctorType) => {
+    doctors.forEach((doctor) => {
+        if (doctor.doctorID === doctorID) {
+            doctor.doctorType = doctorType; // Assigning new type
+        }
+    });
+};
+
+// Promoting the doctor
+promoteDoctor(newDoctorId, "Assistant Consultant");
+
+// Removing doctor
+const removeDoctor = (name) => {
+    let [firstName, lastName] = name.split(" ");
+    doctors.forEach((doctor) => {
+        if (doctor.firstName === firstName && doctor.lastName === lastName) {
+            doctor.active = false; //disabling status
+            removeFromTeam(doctor.doctorID, doctor.teamID);
+        }
+    });
+};
+
+// Removing from team
+const removeFromTeam = (doctorID, teamID) => {
+    team.forEach((t) => {
+        if (t.teamID === teamID) {
+            let pos = t.teamMates.indexOf(doctorID);
+            t.teamMates.splice(pos, 1); //removing from teammates
+        }
+    });
+};
+
+// Removing doctor named "Amin Morshed"
+removeDoctor("Amin Morshed");
 
 console.log(doctors);
 console.log(team);

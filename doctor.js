@@ -88,3 +88,43 @@ const newDoctor = (firstName, lastName, doctorType) => {
 };
 // Adding a new doctor
 newDoctor("Mehedi", "Hassan", "RMO");
+
+// Adding Doctor to team
+const addToTeam = (newDocID, teamID) => {
+    let conDocID;
+    doctors.forEach((doctor) => {
+        if (doctor.doctorType === "Consultant" && doctor.teamID === teamID) {
+            // Searching for the team consultant
+            doctor.doctorRequests.push(newDocID); // Adding id in the consultant's request array
+            conDocID = doctor.doctorID;
+        }
+    });
+    approveToTeam(newDocID, teamID, conDocID);
+};
+
+const approveToTeam = (newDocID, teamID, condocID) => {
+    doctors.forEach((doctor) => {
+        if (doctor.doctorID === newDocID) {
+            doctor.active = true; // activating the doctor
+            doctor.teamID = teamID; // adding the doctor to the team
+        }
+        // removing the doctor id from the consultant's request array
+        if (doctor.doctorID === condocID) {
+            let pos = doctor.doctorRequests.indexOf(newDocID); // Searching the position of newDoctor ID
+            doctor.doctorRequests.splice(pos, 1); // Removing the ID
+        }
+    });
+
+    // Adding the ID in team
+    team.forEach((t) => {
+        if (t.teamID === teamID) {
+            t.teamMates.push(newDocID); // adding the doctor id with his teammates
+        }
+    });
+};
+
+let latestDoctorId = getThelastKey();
+addToTeam(latestDoctorId, "008");
+
+console.log(doctors);
+console.log(team);

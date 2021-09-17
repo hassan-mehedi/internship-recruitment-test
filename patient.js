@@ -35,42 +35,31 @@ const patients = [
 // Listing all the patients in order of thier patient IDs
 const sortThePatients = () => {
     // sorting patients according to their id
-    const sortedPatientsList = patients.sort((a, b) => {
+    patients.sort((a, b) => {
         return a.patientID - b.patientID;
     });
     // printing all the patients
-    console.log("-> List of patients by their id:");
-    console.log(sortedPatientsList);
+    console.log("-> Sorted order of patient:");
+    patients.forEach((patient) => {
+        let { firstName, lastName, patientID } = patient;
+        console.log(`\t* Name: ${firstName} ${lastName}, ID: ${patientID}`);
+    });
 };
-
-// Calling the function
-sortThePatients();
 
 // Task - 2
 // Listing and admitting the patients who are not admitted
-
 const admittPatient = () => {
-    // finding not admitted patients and storing the list
-
-    const notAdmittedPatients = patients.filter((patient) => {
-        return !patient.isAdmitted;
-    });
-    // printing the list
     console.log("-> List of patients who are not admitted:");
-    console.log(notAdmittedPatients);
-
-    // admitting the patients
-
-    notAdmittedPatients.map((patient) => {
-        patient.isAdmitted = true;
+    patients.forEach((patient) => {
+        let { firstName, lastName, isAdmitted, patientID } = patient;
+        if (isAdmitted === false) {
+            console.log(
+                `\t* Id:${patientID} Name: ${firstName} ${lastName}, Admitted: NO`
+            );
+            patient.isAdmitted = true; //Admitting the patients
+        }
     });
-    // printing the list
-    console.log("-> After admitting the patient:");
-    console.log(notAdmittedPatients);
 };
-
-// Calling the function
-admittPatient();
 
 // Task - 3
 // Find the patients who need kidney
@@ -89,12 +78,18 @@ const checkDiseaseForKidney = (patient) => {
 
 // Function to find information of patients who need kidney
 const findKidneyPatients = () => {
+    // finding patients who needs kidney
     const needKidney = patients.filter((patient) => {
         return checkDiseaseForKidney(patient);
     });
     // printing the information of patients
-    console.log("-> List of patients who need kidneys");
-    console.log(needKidney);
+    console.log("-> List of patients who need kidneys:");
+    needKidney.forEach((patient) => {
+        let { firstName, lastName, patientID } = patient;
+        console.log(
+            `\t* ID: ${patientID} Name: ${firstName} ${lastName}, Needs Kidney: YES`
+        );
+    });
 
     // task - 3a
     // printing the number of patients we need to finish the kidney stock
@@ -104,9 +99,6 @@ const findKidneyPatients = () => {
         }`
     );
 };
-
-// Calling the Function
-findKidneyPatients();
 
 // Task - 4
 // Find the donors who has covid
@@ -124,6 +116,7 @@ const checkDiseaseForCovid = (patient) => {
 };
 
 const findCovidPatients = () => {
+    // Finding Covid patients
     const covidPatients = patients.filter((patient) => {
         return checkDiseaseForCovid(patient);
     });
@@ -135,12 +128,18 @@ const findCovidPatients = () => {
         const { lastName, firstName } = patient;
         let numberOfDiseases = patient.diseases.length;
         console.log(
-            `\t*${lastName}, ${firstName}, ${numberOfDiseases} ${
+            `\t* ${lastName}, ${firstName}, ${numberOfDiseases} ${
                 numberOfDiseases > 1 ? "diseases" : "disease"
             }`
         );
     });
 };
 
-// Calling the function
-findCovidPatients();
+// Calling the functions
+
+// sortThePatients();
+// admittPatient();
+// findKidneyPatients();
+// findCovidPatients();
+
+export { patients };
